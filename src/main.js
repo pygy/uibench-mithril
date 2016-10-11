@@ -1,33 +1,28 @@
 import m from 'mithril';
 
-const TableCell = {
-  view(vnode) {
-    return m('td.TableCell', {
-      onclick(e) {
-        console.log('Clicked' + vnode.attrs.text);
-        e.stopPropagation();
-      },
-      key: vnode.attrs.key
-    }, vnode.attrs.text);
-  }
+function tableCell(text) {
+  return m('td.TableCell', {
+    onclick(e) {
+      console.log('Clicked ' + text);
+      e.stopPropagation();
+    }
+  }, text);
 };
 
-const TableRow = {
-  view(vnode) {
-    return m(`tr[data-id=${vnode.attrs.data.id}]`, {
-        class: vnode.attrs.data.active ? 'TableRow active' : 'TableRow'
-      }, [
-      m(TableCell, { text: `#${vnode.attrs.data.id}` }),
-      vnode.attrs.data.props.map((c, i) => m(TableCell, { key: i, text: c }))
+function tableRow(data) {
+  return m(`tr[data-id=${data.id}]`, {
+      class: data.active ? 'TableRow active' : 'TableRow'
+    }, [
+      tableCell(`#${data.id}`),
+      data.props.map(tableCell)
     ]);
-  }
 };
 
 const Table = {
   view(vnode) {
     return m('table.Table', [
       m('tbody', [
-        vnode.attrs.data.items.map(i => m(TableRow, { key: i.id, data: i }))
+        vnode.attrs.data.items.map(tableRow)
       ])
     ]);
   }
@@ -71,7 +66,12 @@ const TreeNode = {
 };
 
 const Tree = {
+  onbeforeupdate(vnode) {
+    if (this.root === vnode.attrs.data.root) return false
+  },
+
   view(vnode) {
+    this.root = vnode.attrs.data.root
     return m('div.Tree', m(TreeNode, { data: vnode.attrs.data.root }));
   }
 };
