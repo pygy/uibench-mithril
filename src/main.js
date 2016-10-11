@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-var TableCell = {
+const TableCell = {
   view(vnode) {
     return m('td.TableCell', {
       onclick(e) {
@@ -12,7 +12,7 @@ var TableCell = {
   }
 };
 
-var TableRow = {
+const TableRow = {
   view(vnode) {
     return m(`tr[data-id=${vnode.attrs.data.id}]`, {
         class: vnode.attrs.data.active ? 'TableRow active' : 'TableRow'
@@ -23,7 +23,7 @@ var TableRow = {
   }
 };
 
-var Table = {
+const Table = {
   view(vnode) {
     return m('table.Table', [
       m('tbody', [
@@ -33,7 +33,7 @@ var Table = {
   }
 };
 
-var AnimBox = {
+const AnimBox = {
   view(vnode) {
     return m(`div.AnimBox[data-id=${vnode.attrs.data.id}]`, {
       style: {
@@ -44,7 +44,7 @@ var AnimBox = {
   }
 };
 
-var Anim = {
+const Anim = {
   view(vnode) {
     return m('div.Anim', [
       vnode.attrs.data.items.map(i => m(AnimBox, { key: i.id, data: i }))
@@ -52,13 +52,13 @@ var Anim = {
   }
 };
 
-var TreeLeaf = {
+const TreeLeaf = {
   view(vnode) {
     return m('li.TreeLeaf', vnode.attrs.data.id);
   }
 };
 
-var TreeNode = {
+const TreeNode = {
   view(vnode) {
     return m('ul.TreeNode', [
       vnode.attrs.data.children.map(c => c.container ?
@@ -70,7 +70,7 @@ var TreeNode = {
   }
 };
 
-var Tree = {
+const Tree = {
   view(vnode) {
     return m('div.Tree', m(TreeNode, { data: vnode.attrs.data.root }));
   }
@@ -78,9 +78,9 @@ var Tree = {
 
 
 
-var Main = {
+const Main = {
   oninit(vnode) {
-    var location = vnode.attrs.data.location;
+    let location = vnode.attrs.data.location;
     if (location === 'table') {
       vnode.data = m(Table, { data: vnode.attrs.data.table });
     } else if (location === 'anim') {
@@ -97,7 +97,7 @@ var Main = {
 uibench.init('Mithril', '1.0.0');
 
 document.addEventListener('DOMContentLoaded', e => {
-  var container = document.getElementById('App');
+  let container = document.getElementById('App');
 
   uibench.run(
     state => {
