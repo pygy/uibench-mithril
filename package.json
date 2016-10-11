@@ -16,8 +16,8 @@
     "benchmark"
   ],
   "scripts": {
-    "build": "./node_modules/.bin/gulp build",
-    "serve": "./node_modules/.bin/gulp serve"
+    "build": "gulp build",
+    "serve": "gulp serve"
   },
   "dependencies": {
     "mithril": "github:lhorie/mithril.js#rewrite"
