@@ -1,0 +1,34 @@
+{
+  "private": true,
+  "name": "uibench-mithril",
+  "version": "0.1.0",
+  "description": "UI Benchmark: Mithril (Rewrite ~ 1.0.0)",
+  "homepage": "https://github.com/adampotocki/uibench-mithril",
+  "repository": "https://github.com/adampotocki/uibench-mithril",
+  "author": {
+    "name": "Adam Potocki",
+    "email": "adam.potocki@gmail.com",
+    "url": "https://github.com/adampotocki"
+  },
+  "keywords": [
+    "Mithril",
+    "uibench",
+    "benchmark"
+  ],
+  "scripts": {
+    "build": "./node_modules/.bin/gulp build",
+    "serve": "./node_modules/.bin/gulp serve"
+  },
+  "dependencies": {
+    "mithril": "github:lhorie/mithril.js#rewrite"
+  },
+  "devDependencies": {
+    "babel-core": "^6.16.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-latest": "^6.16.0",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-util": "^3.0.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
