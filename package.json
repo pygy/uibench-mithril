@@ -16,19 +16,9 @@
     "benchmark"
   ],
   "scripts": {
-    "build": "gulp build",
-    "serve": "gulp serve"
+    "build": "rm build/main.js && cat ./node_modules/mithril/mithril.min.js ./src/main.js > ./build/main.js"
   },
   "dependencies": {
     "mithril": "github:lhorie/mithril.js#rewrite"
-  },
-  "devDependencies": {
-    "babel-core": "^6.16.0",
-    "babel-loader": "^6.2.5",
-    "babel-preset-latest": "^6.16.0",
-    "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-util": "^3.0.7",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2"
   }
 }

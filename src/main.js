@@ -1,8 +1,6 @@
-import m from 'mithril';
-
 function tableCell(text) {
   return m('td.TableCell', {
-    onclick(e) {
+    onclick: function onclick(e) {
       console.log('Clicked ' + text);
       e.stopPropagation();
     }
@@ -10,16 +8,16 @@ function tableCell(text) {
 };
 
 function tableRow(data) {
-  return m(`tr[data-id=${data.id}]`, {
+  return m(("tr[data-id=" + (data.id) + "]"), {
       class: data.active ? 'TableRow active' : 'TableRow'
     }, [
-      tableCell(`#${data.id}`),
+      tableCell(("#" + (data.id))),
       data.props.map(tableCell)
     ]);
 };
 
-const Table = {
-  view(vnode) {
+var Table = {
+  view: function view(vnode) {
     return m('table.Table', [
       m('tbody', [
         vnode.attrs.data.items.map(tableRow)
@@ -28,9 +26,9 @@ const Table = {
   }
 };
 
-const AnimBox = {
-  view(vnode) {
-    return m(`div.AnimBox[data-id=${vnode.attrs.data.id}]`, {
+var AnimBox = {
+  view: function view$1(vnode) {
+    return m(("div.AnimBox[data-id=" + (vnode.attrs.data.id) + "]"), {
       style: {
         borderRadius: (vnode.attrs.data.time % 10).toString() + 'px',
         background: 'rgba(0,0,0,' + (0.5 + ((vnode.attrs.data.time % 10) / 10)).toString() + ')'
@@ -39,38 +37,38 @@ const AnimBox = {
   }
 };
 
-const Anim = {
-  view(vnode) {
+var Anim = {
+  view: function view$2(vnode) {
     return m('div.Anim', [
-      vnode.attrs.data.items.map(i => m(AnimBox, { key: i.id, data: i }))
+      vnode.attrs.data.items.map(function (i) { return m(AnimBox, { key: i.id, data: i }); })
     ]);
   }
 };
 
-const TreeLeaf = {
-  view(vnode) {
+var TreeLeaf = {
+  view: function view$3(vnode) {
     return m('li.TreeLeaf', vnode.attrs.data.id);
   }
 };
 
-const TreeNode = {
-  view(vnode) {
+var TreeNode = {
+  view: function view$4(vnode) {
     return m('ul.TreeNode', [
-      vnode.attrs.data.children.map(c => c.container ?
+      vnode.attrs.data.children.map(function (c) { return c.container ?
           m(TreeNode, { key: c.id, data: c })
         :
-          m(TreeLeaf, { key: c.id, data: c })
+          m(TreeLeaf, { key: c.id, data: c }); }
         )
     ]);
   }
 };
 
-const Tree = {
-  onbeforeupdate(vnode) {
+var Tree = {
+  onbeforeupdate: function onbeforeupdate(vnode) {
     if (this.root === vnode.attrs.data.root) return false
   },
 
-  view(vnode) {
+  view: function view$5(vnode) {
     this.root = vnode.attrs.data.root
     return m('div.Tree', m(TreeNode, { data: vnode.attrs.data.root }));
   }
@@ -78,9 +76,9 @@ const Tree = {
 
 
 
-const Main = {
-  oninit(vnode) {
-    let location = vnode.attrs.data.location;
+var Main = {
+  oninit: function oninit(vnode) {
+    var location = vnode.attrs.data.location;
     if (location === 'table') {
       vnode.data = m(Table, { data: vnode.attrs.data.table });
     } else if (location === 'anim') {
@@ -89,27 +87,27 @@ const Main = {
       vnode.data = m(Tree, { data: vnode.attrs.data.tree });
     }
   },
-  view(vnode) {
+  view: function view$6(vnode) {
     return m('div.Main', vnode.data);
   }
 };
 
 uibench.init('Mithril', '1.0.0');
 
-document.addEventListener('DOMContentLoaded', e => {
-  let container = document.getElementById('App');
+document.addEventListener('DOMContentLoaded', function (e) {
+  var container = document.getElementById('App');
 
   uibench.run(
-    state => {
+    function (state) {
       m.mount(container, {
-        view(vnode) {
+        view: function view(vnode) {
           return m(Main, { data: state });
         }
       });
     },
-    samples => {
+    function (samples) {
       m.mount(container, {
-        view(vnode) {
+        view: function view(vnode) {
           return m('pre', JSON.stringify(samples, null, ' '));
         }
       });
